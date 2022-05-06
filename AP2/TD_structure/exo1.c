@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef char Texte[101];
 typedef struct
@@ -96,6 +97,73 @@ void affiche_employe(Employe employe)
 {
 
     printf("%s %s, %i %s, %i %s, ", employe.nom, employe.prenom, employe.adresse.num, employe.adresse.nom_de_rue, employe.adresse.postal, employe.adresse.localite);
+}
+
+void ini_societe(Societe *societe)
+{
+    societe->nb_employes = 0;
+}
+
+int add_emp_to_societe(Societe *societe, Employe employe)
+{
+    if (societe->nb_employes >= 100)
+    {
+        return -1;
+    }
+
+    societe->liste_employes[societe->nb_employes] = employe;
+    societe->nb_employes++;
+    return 0;
+}
+
+void affiche_societe(Societe societe)
+{
+    int i;
+    printf("liste des employés de la société:\n");
+    for (i = 0; i < societe.nb_employes; i++)
+    {
+        printf("\tEmployé numéro %i : ", i + 1);
+        affiche_employe(societe.liste_employes[i]);
+        printf("\n");
+    }
+}
+
+int recherche_employe(Societe societe, Texte prenom, Texte nom)
+{
+    int i;
+    for (i = 0; i < societe.nb_employes; i++)
+    {
+        if ((srtcmp(societe.liste_employes[i].nom, nom) == 0) && (srtcmp(societe.liste_employes[i].prenom, prenom) == 0))
+            return i;
+    }
+    return -1;
+}
+
+void affiche_recherche_employe(Societe societe, Texte nom, Texte prenom)
+
+{
+    int i = recherche_employe(societe, nom, prenom);
+
+    if (i == -1)
+    {
+        printf("cette employé n'existe pas:");
+    }
+    printf("l'employé est le %ieme de la societé : ", i);
+    affiche_employe(societe.liste_employes[i]);
+    printf("\n");
+}
+
+int supp_empleye_to_societe(Societe *societe, Texte nom, Texte prenom)
+{
+    int i = recherche_employe(*societe, nom, prenom);
+
+    if (i == -1)
+    {
+        return -1;
+    }
+    societe->liste_employes[i] = societe->liste_employes[societe->nb_employes - 1];
+    societe->nb_employes--;
+    return 0;
 }
 
 int main()
