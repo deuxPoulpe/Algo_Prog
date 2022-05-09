@@ -331,6 +331,9 @@ deplacement saisie_deplacement(echiquier ech, couleur clr)
             pos2.colonne = col2 - 'A';
             dep.depart = pos1;
             dep.arrivee = pos2;
+            // Simple affichage pour voir si ca fonctionne
+            // printf("%i %i", pos1.colonne, pos1.ligne);
+            // printf("%i %i", pos2.colonne, pos2.ligne);
             return dep;
         }
         else
@@ -347,16 +350,16 @@ deplacement saisie_deplacement(echiquier ech, couleur clr)
 
 void deplacer_piece(echiquier ech, deplacement dep)
 {
-    piece *piece_0;
-    piece *piece_1 = ech[dep.depart.ligne][dep.depart.colonne];
-    piece *piece_2 = ech[dep.arrivee.ligne][dep.arrivee.colonne];
-    piece_0 = piece_1;
-    if (piece_2 != NULL)
+    piece *temp;
+    piece *piece_d = ech[dep.depart.ligne][dep.depart.colonne];
+    piece *piece_f = ech[dep.arrivee.ligne][dep.arrivee.colonne];
+    temp = piece_d;
+    if (piece_f != NULL)
     {
-        free(piece_2);
+        free(piece_f);
     }
-    piece_2 = piece_0;
-    piece_1 = NULL;
+    piece_f = temp;
+    piece_d = NULL;
 }
 
 int main(void)
@@ -366,7 +369,7 @@ int main(void)
     couleur clr;
     init_jeu(ech);
     affichage_jeu(ech);
-    printf("Choisissez une couleur (0 pour blanc et 1 pour noir) : ");
+    printf("Choisissez une couleur (0 = blanc et 1 = noir) : ");
     scanf("%i", &clr);
     deplacement dep = saisie_deplacement(ech, clr);
     deplacer_piece(ech, dep);
