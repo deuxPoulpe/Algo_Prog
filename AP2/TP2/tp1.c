@@ -350,7 +350,7 @@ deplacement saisie_deplacement(echiquier ech, couleur clr)
 
 void deplacer_piece(echiquier ech, deplacement dep)
 {
-    // piece *temp = NULL;
+    // piece *temp;
     // piece *piece_d = ech[dep.depart.ligne][dep.depart.colonne];
     // piece *piece_f = ech[dep.arrivee.ligne][dep.arrivee.colonne];
     // temp = piece_d;
@@ -361,7 +361,7 @@ void deplacer_piece(echiquier ech, deplacement dep)
     // piece_f = temp;
     // piece_d = NULL;
 
-        if (ech[dep.arrivee.ligne][dep.arrivee.colonne] != NULL)
+    if (ech[dep.arrivee.ligne][dep.arrivee.colonne] != NULL)
     {
         free(ech[dep.arrivee.ligne][dep.arrivee.colonne]);
     }
