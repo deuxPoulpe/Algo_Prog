@@ -312,7 +312,7 @@ deplacement saisie_deplacement(echiquier ech, couleur clr)
 {
     position pos1, pos2;
     char col1, col2;
-    piece *p;
+    piece *piece;
     deplacement dep;
     printf("Entrer la position (ligne et colonne) de la piece : ");
     scanf("%i %c", &pos1.ligne, &col1);
@@ -320,8 +320,8 @@ deplacement saisie_deplacement(echiquier ech, couleur clr)
 
     pos1.colonne = col1 - 'A';
 
-    p = ech[pos1.ligne][pos1.colonne];
-    if (p != NULL && p->color == clr)
+    piece = ech[pos1.ligne][pos1.colonne];
+    if (piece != NULL && piece->color == clr)
     {
         printf("Entrer la position d'arrivee : ");
         scanf("%i %c", &pos2.ligne, &col2);
@@ -332,7 +332,7 @@ deplacement saisie_deplacement(echiquier ech, couleur clr)
             dep.depart = pos1;
             dep.arrivee = pos2;
             // Simple affichage pour voir si ca fonctionne
-            // printf("%i %i", pos1.colonne, pos1.ligne);
+            // printf("%i %i\t", pos1.colonne, pos1.ligne);
             // printf("%i %i", pos2.colonne, pos2.ligne);
             return dep;
         }
