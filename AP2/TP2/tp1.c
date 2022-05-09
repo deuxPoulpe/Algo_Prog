@@ -338,12 +338,16 @@ deplacement saisie_deplacement(echiquier ech, couleur clr)
         }
         else
         {
-            printf("Le mouvement est a l'exterieur");
+            printf("La piece sort de l'echiquier");
         }
+    }
+    else if (p == NULL)
+    {
+        printf("La piece n'existe");
     }
     else
     {
-        printf("La piece n'existe pas ou de mauvaise couleur");
+        printf("La piece est de mauvaise couleur");
     }
     return dep;
 }
