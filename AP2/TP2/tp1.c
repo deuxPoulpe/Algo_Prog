@@ -246,7 +246,7 @@ void affichage_jeu(echiquier ech)
             {
                 printf("      |");
             }
-            else if (ech[i][j]->color = NOIR)
+            else if (ech[i][j]->color == NOIR)
             {
                 if (ech[i][j]->type == ROI)
                 {
@@ -303,7 +303,7 @@ void affichage_jeu(echiquier ech)
         }
         printf("\n       ---------------------------------------------------------\n");
     }
-    printf("           A      B      C      D      E      F      G      H");
+    printf("           A      B      C      D      E      F      G      H\n\n");
 }
 
 // Fonction de déplacement :
@@ -318,25 +318,59 @@ deplacement saisie_deplacement(echiquier ech, couleur clr)
     scanf("%i %c", &pos1.ligne, &col1);
     pos1.ligne = 8 - pos1.ligne;
 
-    if (col1 >= 'A' && col1 <= 'Z')
+    pos1.colonne = col1 - 'A';
+
+    p = ech[pos1.ligne][pos1.colonne];
+    if (p != NULL && p->color == clr)
     {
-        pos1.colonne = col1 - 'A';
+        printf("Entrer la position d'arrivee : ");
+        scanf("%i %c", &pos2.ligne, &col2);
+        if (pos2.ligne > 0 && pos2.ligne < 9 && col2 >= 'A' && col2 <= 'H')
+        {
+            pos2.ligne = 8 - pos2.ligne;
+            pos2.colonne = col2 - 'A';
+            dep.depart = pos1;
+            dep.arrivee = pos2;
+            return dep;
+        }
+        else
+        {
+            printf("Le mouvement est a l'exterieur");
+        }
     }
-    else if (col1 >= 'z' && col1 <= 'z')
+    else
     {
-        pos1.colonne = col1 - 'a';
+        printf("La piece n'existe pas ou de mauvaise couleur");
     }
+    return dep;
+}
+
+void deplacer_piece(echiquier ech, deplacement dep)
+{
+    piece *piece_0;
+    piece *piece_1 = ech[dep.depart.ligne][dep.depart.colonne];
+    piece *piece_2 = ech[dep.arrivee.ligne][dep.arrivee.colonne];
+    piece_0 = piece_1;
+    if (piece_2 != NULL)
+    {
+        free(piece_2);
+    }
+    piece_2 = piece_0;
+    piece_1 = NULL;
 }
 
 int main(void)
 {
 
-    piece p1;
-    echiquier e1;
-    deplacement d1;
-    init_jeu(e1);
-    affichage_jeu(e1);
-    printf("\noui");
-
+    echiquier ech;
+    couleur clr;
+    init_jeu(ech);
+    affichage_jeu(ech);
+    printf("Choisissez une couleur (0 pour blanc et 1 pour noir) : ");
+    scanf("%i", &clr);
+    deplacement dep = saisie_deplacement(ech, clr);
+    deplacer_piece(ech, dep);
+    printf("\n");
+    affichage_jeu(ech);
     return 0;
 }
