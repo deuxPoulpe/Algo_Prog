@@ -367,11 +367,12 @@ int main(void)
 
     echiquier ech;
     couleur clr;
+    deplacement dep;
     init_jeu(ech);
     affichage_jeu(ech);
     printf("Choisissez une couleur (0 = blanc et 1 = noir) : ");
     scanf("%i", &clr);
-    deplacement dep = saisie_deplacement(ech, clr);
+    dep = saisie_deplacement(ech, clr);
     deplacer_piece(ech, dep);
     printf("\n");
     affichage_jeu(ech);
