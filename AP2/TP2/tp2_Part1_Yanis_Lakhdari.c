@@ -341,7 +341,7 @@ deplacement saisie_deplacement(echiquier ech, couleur clr)
             printf("La piece sort de l'echiquier");
         }
     }
-    else if (p == NULL)
+    else if (piece == NULL)
     {
         printf("La piece n'existe");
     }
