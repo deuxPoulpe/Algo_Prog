@@ -77,20 +77,45 @@ void deplacements_possibles(echiquier grid, position pos, int test_grid[8][8])
     piece ptm;
     ptm.color = grid[pos.ligne][pos.colonne]->color;
     ptm.type = grid[pos.ligne][pos.colonne]->type;
-
-    printf("%i  %i", ptm.color, ptm.type);
+    printf("%i%i\n", pos.ligne, pos.colonne);
     if (ptm.color == 0)
     {
         if (ptm.type == 0)
         {
             if (pos.ligne == 6)
             {
-                test_grid[pos.ligne - 1][pos.colonne] = 1;
-                test_grid[pos.ligne - 2][pos.colonne] = 1;
+                if ((grid[pos.ligne - 1][pos.colonne] == NULL) && (0 < pos.ligne - 1 < 8) && (0 < pos.colonne < 8))
+                {
+                    test_grid[pos.ligne - 1][pos.colonne] = 1;
+
+                    if ((grid[pos.ligne - 2][pos.colonne] == NULL) && (0 < pos.ligne - 2 < 8) && (0 < pos.colonne < 8))
+                    {
+                        test_grid[pos.ligne - 2][pos.colonne] = 1;
+                    }
+                }
             }
-            else
+            else if ((grid[pos.ligne - 1][pos.colonne] == NULL) && (0 < pos.ligne - 1 < 8) && (0 < pos.colonne < 8))
             {
                 test_grid[pos.ligne - 1][pos.colonne] = 1;
+            }
+        }
+        else if (ptm.type == 1)
+        {
+            if ((grid[pos.ligne - 2][pos.colonne - 1] == NULL) && (0 < pos.ligne - 2 < 8) && (0 < pos.colonne - 1 < 8))
+            {
+                test_grid[pos.ligne - 2][pos.colonne - 1] = 2;
+            }
+            if ((grid[pos.ligne - 1][pos.colonne - 2] == NULL) && (0 < pos.ligne - 1 < 8) && (0 < pos.colonne - 2 < 8))
+            {
+                test_grid[pos.ligne - 1][pos.colonne - 2] = 3;
+            }
+            if ((grid[pos.ligne - 2][pos.colonne + 1] == NULL) && (0 < pos.ligne - 2 < 8) && (0 < pos.colonne + 1 < 8))
+            {
+                test_grid[pos.ligne - 2][pos.colonne + 1] = 4;
+            }
+            if ((grid[pos.ligne - 1][pos.colonne + 2] == NULL) && (0 < pos.ligne - 1 < 8) && (0 < pos.colonne + 2 < 8))
+            {
+                test_grid[pos.ligne - 1][pos.colonne + 2] = 5;
             }
         }
     }
@@ -107,7 +132,7 @@ void deplacements_possibles(echiquier grid, position pos, int test_grid[8][8])
             }
             else
             {
-                printf("1   ");
+                printf("%i   ", test_grid[i][j]);
             }
         }
         printf("\n");
