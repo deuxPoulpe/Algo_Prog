@@ -1,5 +1,8 @@
 #include "jeu.h"
 
+int count;
+int fin = 0;
+
 void init_jeu(echiquier grid)
 {
     int i, j;
@@ -77,7 +80,6 @@ void deplacements_possibles(echiquier grid, position pos, int test_grid[8][8])
     piece ptm;
     ptm.color = grid[pos.ligne][pos.colonne]->color;
     ptm.type = grid[pos.ligne][pos.colonne]->type;
-    printf("%i  et %i\n", pos.ligne - 1, pos.colonne - 2);
 
     // Deplacement PION blanc
 
@@ -145,9 +147,64 @@ void deplacements_possibles(echiquier grid, position pos, int test_grid[8][8])
 
     // Deplacement du FOU
 
-    else if (ptm.type == 2)
+    if (ptm.type == 2)
     {
-        /* code */
+        fin = 1;
+        count = 1;
+        while (fin == 1)
+        {
+            if ((grid[pos.ligne - count][pos.colonne + count] == NULL) && (0 <= pos.ligne - count) && (7 >= pos.ligne - count) && (0 <= pos.colonne + count) && (7 >= pos.colonne + count))
+            {
+                test_grid[pos.ligne - count][pos.colonne + count] = 1;
+            }
+            else
+            {
+                fin = 0;
+            }
+            count++;
+        }
+        fin = 1;
+        count = 1;
+        while (fin == 1)
+        {
+            if ((grid[pos.ligne - count][pos.colonne - count] == NULL) && (0 <= pos.ligne - count) && (7 >= pos.ligne - count) && (0 <= pos.colonne - count) && (7 >= pos.colonne - count))
+            {
+                test_grid[pos.ligne - count][pos.colonne - count] = 1;
+            }
+            else
+            {
+                fin = 0;
+            }
+            count++;
+        }
+        fin = 1;
+        count = 1;
+        while (fin == 1)
+        {
+            if ((grid[pos.ligne + count][pos.colonne + count] == NULL) && (0 <= pos.ligne + count) && (7 >= pos.ligne + count) && (0 <= pos.colonne + count) && (7 >= pos.colonne + count))
+            {
+                test_grid[pos.ligne + count][pos.colonne + count] = 1;
+            }
+            else
+            {
+                fin = 0;
+            }
+            count++;
+        }
+        fin = 1;
+        count = 1;
+        while (fin == 1)
+        {
+            if ((grid[pos.ligne + count][pos.colonne - count] == NULL) && (0 <= pos.ligne + count) && (7 >= pos.ligne + count) && (0 <= pos.colonne - count) && (7 >= pos.colonne - count))
+            {
+                test_grid[pos.ligne + count][pos.colonne - count] = 1;
+            }
+            else
+            {
+                fin = 0;
+            }
+            count++;
+        }
     }
 
     printf("\n");
